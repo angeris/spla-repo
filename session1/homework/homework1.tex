@@ -221,15 +221,23 @@ the same number of elements, $n$. This is defined as
 \[
     x^Ty = x_1y_1 + x_2y_2 + \dots + x_ny_n.
 \]
-The notion of \emph{orthogonality} (that two nonzero vectors are at a 90-degree
-angle to each other) plays a big role. Unfortunately this notion of
-orthogonality is not so clear in finite fields.
+The notion of \emph{orthogonality}, that is, that two vectors $x$ and $y$ have
+inner product equal to zero; \ie,
+\[
+    x^Ty = 0,
+\]
+plays a big role when the vectors' elements are real numbers. In that case, if
+$x$ and $y$ are orthogonal, we can say that $x$ and $y$ form a right angle,
+and, more importantly, no vector is orthogonal to itself, except the all-zeros
+vector. Unfortunately this notion of orthogonality is not so clear in finite
+fields.
 
 Show that there is a finite field $\field$ and a nonzero vector $x \in
-\field^n$ that is orthogonal to itself. Extend this example to show that, for
-any finite field $\field$, there is always a nonzero vector $x \in \field^n$,
-that is orthogonal to itself. (As a hint, note that adding 1 to itself
-$|\field|$ times results in 0.)
+\field^n$ that is orthogonal to itself; \ie, the vector $x$ satisfies $x^Tx =
+0$. Extend this example to show that, for any finite field $\field$, there is
+always a nonzero vector $x \in \field^n$, that is orthogonal to itself. (As a
+hint, you should use the fact that adding 1 to itself $|\field|$ times results
+in 0.)
 
 \section{Linear independence and distance}
 In this problem, we will relate the distance of a code with some basic
