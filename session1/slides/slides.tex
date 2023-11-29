@@ -1,0 +1,533 @@
+\documentclass{beamer}
+
+\let\phi\varphi
+\newcommand{\field}{\mathbf{F}}
+\newcommand{\impliesn}[1]{\underset{#1}{\implies}}
+\newcommand{\iffn}[1]{\underset{#1}{\iff}}
+\newcommand{\impliesp}{\impliesn{p}}
+\newcommand{\iffp}{\iffn{p}}
+\newcommand{\impliespp}{\impliesn{p'}}
+\newcommand{\iffpp}{\iffn{p'}}
+\newcommand{\ex}{\mathbf{E}}
+
+
+\mode<presentation>
+{
+\usetheme{default}
+}
+\setbeamertemplate{navigation symbols}{}
+\usecolortheme[rgb={0.13,0.28,0.59}]{structure}
+\setbeamertemplate{itemize subitem}{--}
+\setbeamertemplate{frametitle} {
+        \begin{center}
+          {\large\bf \insertframetitle}
+        \end{center}
+}
+
+\newcommand\footlineon{
+  \setbeamertemplate{footline} {
+    \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,leftskip=.8cm,rightskip=.6cm]{structure}
+      \footnotesize \insertsection
+      \hfill
+      {\insertframenumber}
+    \end{beamercolorbox}
+    \vskip 0.45cm
+  }
+}
+\footlineon
+
+\AtBeginSection[]
+{       
+        \begin{frame}<beamer> 
+                \frametitle{Outline} 
+                \tableofcontents[currentsection]
+        \end{frame}
+}
+
+% \usepackage{subcaption}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{matrix, positioning}
+
+\makeatletter
+\def\mathcolor#1#{\@mathcolor{#1}}
+\def\@mathcolor#1#2#3{%
+  \protect\leavevmode
+  \begingroup
+    \color#1{#2}#3%
+  \endgroup
+}
+\makeatother
+
+\title{Linear Algebra and Probabilistic Implications}
+\author{Guillermo Angeris \and Alex Evans}
+\date{Session 1, SPLA Study Club}
+
+\input{defs.tex}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+    
+    \section{High level ideas}
+    \begin{frame}
+        \frametitle{At a high level}
+        \begin{itemize}\itemsep=12pt
+            \item Take a bunch of concepts from succinct proofs (ZK)
+            \item Reduce them to linear algebra
+            \item (and a bit of error correcting codes)
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{At a high level (cont.)}
+        \begin{itemize}\itemsep=12pt
+            \item Introduce succinct (!) notation
+            \item Relax traditional logic to `probabilistic' versions
+            \item Get `proof-carrying' protocols at the end!
+            \item Show a (weak) bound on the soundness of FRI
+            \pause
+            \item To do this, we have to eat some veggies first...
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Why do this work?}
+        \begin{itemize}\itemsep=12pt
+            \pause
+            \item We start with something we know exists
+            \item Try to (a) find minimal requirements for it to work
+            \item And (b) try to use this to clean up exposition
+            \pause
+            \item Why?
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Why do this work? (Cont.)}
+        \begin{itemize}\itemsep=12pt
+            \item Often, removing requirements helps understanding
+            \item Allows generalizations and new discoveries
+            \item Lets us divide a protocol into its constituent parts
+            \pause
+            \item For more on this check out ep.\ 294 with Kobi and Anna :)
+        \end{itemize}
+    \end{frame}
+
+    
+    \begin{frame}
+        \frametitle{But in reality}
+        \begin{itemize}\itemsep=12pt
+            \pause
+            \item We do it because it's fun :)
+        \end{itemize}
+    \end{frame}
+	
+    \section{Linear algebra}
+    % -- Notation
+    \begin{frame}
+        \frametitle{Vectors}
+        \begin{itemize}\itemsep=12pt
+            \item An $n$-\emph{vector} is an ordered collection of $n$ elements
+            \item Example: a $3$-vector $x$
+            \[
+                x = \begin{bmatrix}
+                    3\\
+                    5\\
+                    1
+                \end{bmatrix}
+            \]
+            \item We will sometimes write this as $x = (3, 5, 1)$
+            \pause
+            \item Can \emph{index} this collection: $x_1=3$, $x_2 = 5$, $x_3=1$
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Operations on vectors}
+        \begin{itemize}\itemsep=12pt
+            \item We can \emph{scale} vectors by a \emph{scalar}
+            \item Example: $x=(3,5,1)$ scaled by $2$
+            \[
+                2x = 2\begin{bmatrix}
+                    3\\
+                    5\\
+                    1
+                \end{bmatrix}
+                = \begin{bmatrix}
+                    6\\
+                    10\\
+                    2
+                \end{bmatrix}
+            \]
+            \vspace{-2em}
+            \pause
+            \item We can also add vectors too
+            \[
+                x+\begin{bmatrix}
+                    1\\
+                    2\\
+                    3
+                    \end{bmatrix}
+                = \begin{bmatrix}
+                    3\\
+                    5\\
+                    1
+                \end{bmatrix}
+                + \begin{bmatrix}
+                    1\\
+                    2\\
+                    3
+                    \end{bmatrix}
+                = \begin{bmatrix}
+                    4\\
+                    7\\
+                    4
+                \end{bmatrix}
+            \]
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Linear combinations}
+        \begin{itemize}\itemsep=12pt
+            \item Of course, we can do both at the same time
+            \item Given vectors $x$, $y$, and $z$, we can take
+            \[
+                x + 2y + 3z
+            \]
+            \item Called a \emph{linear combination} of vectors
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Scalar and vector notation}
+        \begin{itemize}\itemsep=12pt
+            \item Vectors will almost always be \emph{lowercase Roman} letters
+            \item Such as $x$, $y$, $z$, ...
+            \item Scalars will almost always be \emph{lowercase Greek} letters
+            \item For example, $\alpha$, $\beta$, $\gamma$, ...
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Linear combinations}
+        \begin{itemize}\itemsep=12pt
+            \item We are often interested in linear combinations of vectors
+            \item For this we need, (a) a collection of vectors and (b) a collection of scalars
+            \pause
+            \item From before: (b) is just a vector
+            \pause
+            \item But (a) is what we call a \emph{matrix}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Matrices}
+        \begin{itemize}\itemsep=12pt
+            \item An $m \times n$ matrix is an ordered list (of length $n$) of $m$-vectors
+            \pause
+            \item We can take a linear combination of the $n$ available $m$-vectors
+            \pause
+            \item If a vector $z=(4, 8, 2)$ contains the scalars
+            \item And $A$ is a $m \times 3$ matrix, then
+            \[
+                Az = 4a_1 + 8a_2 + 2a_3
+            \]
+            where $a_i$ is the $i$th column of $A$
+            \pause
+            \item Very compact notation!
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Example of a matrix}
+        \begin{itemize}\itemsep=12pt
+            \item Useful to write matrices as `rectangles of numbers'
+            \item Example matrix $A$ of dimensions $3\times 2$
+            \[
+                A = \begin{bmatrix}
+                    3 & 1\\
+                    5 & 2\\
+                    1 & 3
+                \end{bmatrix}
+            \]
+            \item Matrices will almost always be \emph{uppercase Roman} letters
+            \item Such as $A$, $B$, $C$, ...
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Finite fields (a quick aside)}
+        \begin{itemize}\itemsep=12pt
+            \item The numbers in the vectors (and matrices) have to `exist somewhere'
+            \item We usually assume these numbers lie in a \emph{finite field} $\field$
+            \item An $n$-vector $x$ from a finite field $\field$ is written
+            \[
+                x \in \field^n
+            \]
+            \item An $m\times n$ matrix $A$ with elements in $\field$ is written
+            \[
+                A \in \field^{m\times n}
+            \]
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Vector spaces}
+        \begin{itemize}\itemsep=12pt
+            \item The natural sets where linear algebra works are \emph{vector spaces}
+            \pause
+            \item A set $V \subseteq \field^n$ is a vector space if it is \emph{closed} under linear combinations
+            \item If we take $x, y \in V$ then
+            \[
+                \alpha x + \beta y \in V
+            \]
+            for any $\alpha, \beta \in \field$
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Vector space examples}
+        \begin{itemize}\itemsep=12pt
+            \item The simplest vector space: $V = \{0\}$
+            \pause
+            \item Second simplest: $V = \field^n$
+            \pause
+            \item Third (?) simplest, for fixed $x \in \field^n$: $V = \{\alpha x \mid \alpha \in \field\}$
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Range and nullspace}
+        \begin{itemize}\itemsep=12pt
+            \item The \emph{range} of a matrix $A \in \field^{m\times n}$ is defined as
+            \[
+                \range(A) = \{Ax \mid x \in \field^n\}
+            \]
+            is a vector space (see homework)
+            \pause
+            \item Similarly, the \emph{nullspace} of the matrix $A$
+            \[
+                \nullspace(A) = \{y \in \field^n \mid Ay = 0\}
+            \]
+            is also a (very different!) vector space
+        \end{itemize}
+    \end{frame}
+
+    
+    \begin{frame}
+        \frametitle{Codes}
+        \begin{itemize}\itemsep=12pt
+            \item We will call a matrix $G \in \field^{m \times n}$ a (linear) \emph{error correcting code}
+            \item The matrix $G$ takes in an $n$-vector and spits out an $m$-vector
+            \item Given a \emph{message} $x \in \field^n$ then
+            \[
+                y = Gx
+            \]
+            is an \emph{encoding} of the message $x$
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Codes (examples)}
+        \begin{itemize}\itemsep=12pt
+            \item Some classic codes
+            \pause
+            \item The identity code
+            \[
+                G = I
+            \]
+            such that $Gx = x$
+            \pause
+            \item The repeated code!
+            \[
+                Gx = \begin{bmatrix} x\\x\\\vdots\\x \end{bmatrix}
+            \]
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Codes (examples, cont.)}
+        \begin{itemize}\itemsep=12pt
+            \item More examples!
+            \pause
+            \item The Hadamard code $G \in \field^{m\times n}$: every possible
+                $n$-tuple is a row of $G$
+            \pause
+            \item The Reed--Solomon code $G \in \field^{m \times n}$ (see homework!)
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Distance}
+        \begin{itemize}\itemsep=12pt
+            \item We will only mainly use one definition which is
+                the \emph{distance} of a code
+            \item Defined as
+            \[
+                d = \min_{x \ne 0} \|Gx\|_0
+            \]
+            \item Here, $\|y\|_0$ is the number of nonzero elements in $y$
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Distances of some codes}
+        \begin{itemize}\itemsep=12pt
+            \item The identity code $Gx = x$ has $d = 1$
+            \pause
+            \item The repeated code has $d = k$, where $k$ is the number of repetitions
+            \pause
+            \item The Hadamard code has distance $d = |\field|^n - |\field|^{n-1}$
+            \pause
+            \item The Reed--Solomon code has distance $d = m - n + 1$ (see homework!)
+        \end{itemize}
+    \end{frame}
+
+    \section{Probabilistic implications}
+    \begin{frame}
+        \frametitle{Probabilistic implications}
+        \begin{itemize}\itemsep=12pt
+            \item We'll first start with `normal' logic
+            \item Then expand to a probabilistic logic framework
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{`Traditional' logic}
+        \begin{itemize}\itemsep=12pt
+            \item In classical logic, we have statements, say $P$ and $Q$
+            \pause
+            \item They are either true or false
+            \pause
+            \item In some cases, we can say basic
+                things, such as
+            \[
+                P \wedge Q
+            \]
+            (read: $P$ and $Q$)
+
+            \item Note: statements in math are {\bf assertions}!
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Implications}
+        \begin{itemize}\itemsep=12pt
+            \item Other possible statements include
+            \item $P$ implies $Q$ (\ie, some statement implies another)
+            \pause
+            \item This is the same as saying
+            \[
+                \neg (P \wedge \neg Q)
+            \]
+            (Consequence: if $P$ implies $Q$, and $Q$ implies $T$, then $P$ implies $T$)
+            \item See homework!
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Probabilistic? Implications}
+        \begin{itemize}\itemsep=12pt
+            \item At a high level:
+            \item Zero knowledge proofs deal with implications \emph{with some error}
+            \pause
+            \item How do we codify this idea in notation?
+            \pause
+            \item By relaxing implications to \emph{probabilistic implications}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Probabilistic implications}
+        \begin{itemize}\itemsep=12pt
+            \item In zero knowledge protocols, statements depend on \emph{randomness}
+            \item \ie, we have some statement $P_r$
+            \item Which depends on a randomly drawn $r$ (from some distribution)
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Probabilistic implications (cont.)}
+        \begin{itemize}\itemsep=12pt
+            \item Traditional implication: $P$ implies $Q$ if
+            \[
+                \neg(P \wedge \neg Q)
+            \]
+            \item Equivalently: implication doesn't hold if $P \wedge \neg Q$
+            \pause
+            \item A relaxation is: if $P_r$ and $Q_{r'}$ depend on randomness $r$ and $r'$
+            then
+            \[
+                \Pr(P_r \wedge \neg Q_{r'}) \le p
+            \]
+            where $p$ is probability of error
+            \item Recover original definition whenever $p=0$
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Consequences}
+        \begin{itemize}\itemsep=12pt
+            \item Define convenient notation
+            \[
+                P_r \impliesp Q_{r'}
+            \]
+            for $\Pr(P_r \wedge \neg Q_{r'}) \le p$
+            \item Then we can chain implications!
+            \[
+                P_r \impliesp Q_{r'} ~~ \text{and} ~~ Q_{r'} \impliespp T_{r''}
+            \]
+            implies that
+            \[
+                P_r \impliesn{p + p'} T_{r''}
+            \]
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Consequences (cont.)}
+        \begin{itemize}\itemsep=12pt
+            \item We can also take contrapositives
+            \item Given
+            \[
+                P_r \impliesp Q_{r'}
+            \]
+            \item This is the same as
+            \[
+                \neg Q_{r'} \impliesp \neg P_r
+            \]
+            \item And a few others (see homework!)
+        \end{itemize}
+    \end{frame}
+
+
+    \begin{frame}
+        \frametitle{As a side note}
+        \begin{itemize}\itemsep=12pt
+            \item One can create a basic logical language
+            \item Acts much like a syntax with rules for (probabilistic) proofs
+            \item Except it can also spit out probability of failure
+            \item An open project would be to formalize this!
+        \end{itemize}
+    \end{frame}
+
+    \section{Where to from here?}
+
+    \begin{frame}
+        \frametitle{Continuing}
+        \begin{itemize}\itemsep=12pt
+            \item From here, we have all the basics!
+            \pause
+            \item Next up: rewriting some (many?) basic tools of succinct proofs
+            \pause
+            \item We'll finally start saying real things!
+            \pause
+            \item Homework will be released after lecture and Q\&A
+        \end{itemize}
+    \end{frame}
+    % Eaten our vegetables, and really delved in. Next lecture we'll start doing some fun stuff
+    % and generalize some of the open knowledge!
+
+
+\end{document}

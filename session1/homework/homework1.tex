@@ -1,0 +1,313 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, url, float, graphicx, float}
+\usepackage{fullpage}
+\usepackage[small,bf]{caption}
+\usepackage{cite}
+
+\newcommand{\field}{\mathbf{F}}
+\newcommand{\from}{\leftarrow}
+\newcommand{\impliesn}[1]{\underset{#1}{\implies}}
+\newcommand{\iffn}[1]{\underset{#1}{\iff}}
+\newcommand{\impliesp}{\impliesn{p}}
+\newcommand{\iffp}{\iffn{p}}
+\newcommand{\impliespp}{\impliesn{p'}}
+\newcommand{\iffpp}{\iffn{p'}}
+\newcommand{\ex}{\mathbf{E}}
+
+\let\eps\varepsilon
+\let\emptyset\varnothing
+\let\phi\varphi
+
+\let\vec\undefined
+\newcommand{\vec}{\mathbf{vec}}
+
+
+\input defs.tex
+
+\title{Homework 1: SP\&LA Study Group}
+\author{Guille}
+\date{November 2023}
+
+\begin{document} 
+\maketitle 
+
+\section*{A general note}
+None of the solutions to these exercises should be more than a few lines long.
+If you find yourself writing more than half a page or so for a solution,
+there's probably a simpler way! (Of course, \emph{finding} the simpler way
+might not, itself, be so simple.) Problem parts beginning with an {\bf (H)} are
+harder problems.
+
+\section{Matrices}
+In this problem, we'll discuss some properties of matrices. For this problem,
+let's fix an $m\times n$ matrix with elements in the field $\field$, written $A
+\in \field^{m\times n}$. Denote the columns of $A$ by the $m$-vectors $a_1,
+\dots, a_n \in \field^m$. As a reminder, if we have an $n$-vector $x \in
+\field^n$, then the matrix-vector product between $A$ and $x$, which we write
+as $Ax$, results in the vector
+\begin{equation}\label{eq:mat-mul}
+    Ax = x_1a_1 + x_2a_2 + \dots + x_n a_n,
+\end{equation}
+which is a linear combination of the columns of $A$ with the scalars
+equaling the entries of the vector $x$.
+
+\paragraph{Part 1.} Show that the matrix-vector product, as defined above, is
+\emph{linear}, in other words that, for any $\alpha \in \field$ and any $x \in
+\field^n$,
+\[
+    A(\alpha x) = \alpha Ax,
+\]
+and for any other vector $y \in \field^n$,
+\[
+    A(x + y) = Ax + Ay.
+\]
+(We will make use of this a lot in the proofs of the paper!)
+
+\paragraph{(H) Part 2.} Let $f: \field^n \to \field^m$ be any linear function that maps
+$n$-vectors to $m$-vectors;
+\ie, the function $f$ is \emph{linear} because it satisfies
+\[
+    f(\alpha x) = \alpha f(x)
+\]
+and 
+\[
+    f(x + y) = f(x) + f(y),
+\]
+for any scalar $\alpha \in \field$ and any vectors $x, y \in \field^n$.
+(Compare this with the definition above!) Show that there exists some matrix $A
+\in \field^{m \times n}$ such that
+\[
+    f(x) = Ax.
+\]
+(The fact that every matrix corresponds to a linear function and every linear
+function corresponds to a matrix is the reason this field is called
+\emph{linear algebra}.)
+
+\emph{Hint.} Note that every vector $x \in \field^n$ can be written
+as a linear combination of the basis vectors,
+\[
+    e_1 = \begin{bmatrix}
+        1\\0\\\vdots\\0
+    \end{bmatrix},
+    ~~
+    e_2 = 
+    \begin{bmatrix}
+        0\\1\\\vdots\\0
+    \end{bmatrix},
+    ~~
+    \dots,
+    ~~
+    e_n = 
+    \begin{bmatrix}
+        0\\0\\\vdots\\1
+    \end{bmatrix}.
+\]
+
+\paragraph{Part 3.} Say we have a second linear function $h: \field^m \to
+\field^k$. Let's define the new function
+\[
+    w(x) = h(f(x)).
+\]
+This new function $w$ corresponds to taking the output $f(x)$, which is an
+$m$-vector, and passing it through $h$. Show that $w$ is also linear.
+
+\paragraph{(H) Part 4.} From part 2, we know that $w(x) = Dx$ for some matrix
+$D \in \field^{k \times n}$ as it, too, is a linear function. If $f(x) = Ax$
+and $h(y) = By$ for some matrix $B \in \field^{k\times m}$, then what does the
+matrix $D$ correspond to in terms of $A$, $B$, or their corresponding columns?
+
+(If you've seen linear algebra before, this question is `easy' with outside
+tools, but you should not use other knowledge of linear algebra for this
+question! Only the matrix-vector product from the definition
+in~\eqref{eq:mat-mul} is necessary.)
+
+\section{Vector spaces}
+In this problem, we'll explore some basic vector spaces that we talked about in the
+lecture.
+
+As a reminder, we say that a set of $n$-vectors, $V \subseteq \field^n$ is a
+\emph{vector space} if, for any two vectors in this set, $x, y \in V$, and any
+two scalars $\alpha, \beta \in \field$, the linear combination of these two
+vectors (with scalars $\alpha$, $\beta$) are also in the set $V$; \ie,
+\[
+    \alpha x + \beta y \in V.
+\]
+
+\paragraph{Part 1.} From the lecture, the range $\range(A)$
+is defined as the set containing all possible linear combinations of the
+columns of the matrix $A$. Written in set builder notation, this is
+\[
+    \range(A) = \{Ax \mid x \in \field^n\}.
+\]
+Show that the range $\range(A)$ of any matrix $A \in \field^{m\times n}$ is a
+vector space. (You are welcome to use the solution to problem 1, part 1, even
+if you haven't solved it.)
+
+\paragraph{Part 2.} Using the above, the paper shows in~\S1.1 that the set of
+evaluations of polynomials of degree at most $s$ on a fixed set of points is
+itself a vector space. In particular, if we fix a set of points $\alpha_1,
+\dots, \alpha_m \in \field$ and we define the set of vectors
+\begin{equation}\label{eq:rs-mat}
+    V = \{(f(\alpha_1), f(\alpha_2), \dots, f(\alpha_m)) \in \field^m \mid \text{$f$ is a polynomial of degree $\le n-1$}\},
+\end{equation}
+then this set $V$ is a vector space. Flesh out the proof in the paper to show
+that this is indeed a vector space! (As a side note, we will make use of this
+property in our proof of the security of FRI.)
+
+\paragraph{(H) Part 3.} The paper also discusses the fact that, for every
+vector space $V$, there exists a \emph{parity check matrix} $C \in
+\field^{k\times m}$ such that, for some vector $x \in \field^m$, we have that
+$x \in V$ if, and only if, $Cx = 0$. Write out the parity check matrix
+corresponding to the vector space defined in~\eqref{eq:rs-mat}.
+Two hints: first, take a look at the definition of the Vandermonde matrix
+in the paper. Second, look up \emph{Lagrange interpolation}.
+
+\paragraph{(H) Other fun.} For bonus points, show that, indeed, every vector space
+has a parity check matrix. You may assume that every vector space $V$ has a
+matrix $A$ such that $\range(A) = V$ and that this matrix has linearly
+independent columns. (See below for a reminder of the definition of linear
+independence.)
+
+\section{The $\ell_0$ `norm'}
+From before, remember that we defined the `norm' $\|y\|_0$ of a vector $y$ in a
+finite field as the number of nonzero entries of the vector $y$. In math,
+that is
+\[
+    \|y\|_0 = |\{i\mid y_i \ne 0\}|.
+\]
+We will show three properties we will use throughout the paper.
+
+\paragraph{Part 1.} Show that $\|y\|_0 = 0$ if, and only if, $y = 0$. (This
+is called \emph{definiteness}.)
+
+\paragraph{Part 2.} Show that, for any two vectors $x, y \in \field^n$
+the \emph{triangle inequality} holds; \ie,
+\[
+    \|x + y\|_0 \le \|x\|_0 + \|y\|_0.
+\]
+
+\paragraph{Part 3.} Show that the $\ell_0$ `norm' is zero-homogeneous; \ie,
+\[
+    \|\alpha x\|_0 = \|x\|_0,
+\]
+for any $\alpha \in \field$ that is nonzero, $\alpha \ne 0$. (This should be
+contrasted with a usual norm over the reals or the complex numbers!)
+
+\paragraph{Part 4.} A usual thing to do in linear algebra over the real
+numbers is to take an \emph{inner product} of two vectors $x$ and $y$ with
+the same number of elements, $n$. This is defined as
+\[
+    x^Ty = x_1y_1 + x_2y_2 + \dots + x_ny_n.
+\]
+The notion of \emph{orthogonality} (that two nonzero vectors are at a 90-degree
+angle to each other) plays a big role. Unfortunately this notion of
+orthogonality is not so clear in finite fields.
+
+Show that there is a finite field $\field$ and a nonzero vector $x \in
+\field^n$ that is orthogonal to itself. Extend this example to show that, for
+any finite field $\field$, there is always a nonzero vector $x \in \field^n$,
+that is orthogonal to itself. (As a hint, note that adding 1 to itself
+$|\field|$ times results in 0.)
+
+\section{Linear independence and distance}
+In this problem, we will relate the distance of a code with some basic
+properties of linear independence.
+
+From before, we define the \emph{distance} $d$ of a matrix $G \in \field^{m\times n}$
+as
+\[
+    d = \min_{x \ne 0} \|Gx\|_0
+\]
+where $\|y\|_0$ denotes the number of nonzero entries of the vector $y$.
+Similarly, we say that a matrix $G$ has \emph{linearly independent} columns if
+its nullspace contains only the zero vector; \ie, if
+\[
+    \nullspace(G) = \{0\},
+\]
+where the nullspace $\nullspace(G)$ is defined
+\[
+    \nullspace(G) = \{y \in \field^n \mid Gy = 0\}.
+\]
+A basic fact from linear algebra (which you are free to use here) is that any
+matrix $G$ with linearly independent columns has at least as many rows as it
+has columns; \ie, since $G$ is an $m\times n$ matrix, then $m \ge n$.
+
+\paragraph{Part 1.} Show that a generator matrix $G$ is linearly independent
+if, and only if, its distance $d$ is positive, $d > 0$.
+
+\paragraph{Part 2.} Given a matrix $G$ which has some distance $d > 0$, show
+that we can remove any $d-1$ rows to get a new matrix $\tilde G \in
+\field^{(m-d + 1)\times n}$ that also has linearly independent columns. Argue that
+this means that the distance must satisfy
+\[
+    d \le m - n + 1.
+\]
+(This bound on the distance is known as the \emph{Singleton bound} in coding
+theory.) Codes that achieve this bound at equality are known as
+`maximum-distance separable' or MDS codes.
+
+As a fun sidenote: if $G$ is a generator matrix for the Reed--Solomon code
+(see~\S1.3.2), then we know that $d = m - n + 1$, making the Reed--Solomon code
+an MDS code. In a sense, it is the highest-distance code for the chosen
+dimensions (message length and block size).
+
+\section{(Probabilistic?) Implications}
+In this section, we'll explore both `traditional' logic implications
+and probabilistic logic implications. As a reminder, given two statements
+$P$ and $Q$, we say $P$ \emph{implies} $Q$ when
+\begin{equation}\label{eq:implication}
+    \neg(P \wedge \neg Q).
+\end{equation}
+As a second reminder, given random variables $r$ and $r'$ which are taken
+from some (known) distribution and statements $P_r$ and $Q_{r'}$, each
+depending on the randomness of $r$ and $r'$, then we say that
+\[
+    P_r \impliesp Q_{r'}
+\]
+whenever $\Pr(P_r \wedge \neg Q_{r'}) \le p$.
+
+
+\paragraph{Part 1.} Show that if $P$ implies $Q$ and $Q$ implies $T$, then $P$
+implies $T$ using the definition of implication given
+above in~\eqref{eq:implication}. You will need to assume the \emph{law of
+excluded middle}: either $Q$ or $\neg Q$. This is called the \emph{transitivity}
+of implication.
+
+(It is actually possible to have logic without the law of excluded middle, but
+implications must be defined differently for transitivity to hold. Lucky for
+us, we only deal with finite---if very large---sets so we can forget any of
+this conversation ever happened.)
+
+\paragraph{Part 2.} Prove that the probabilistic implications have a similar
+transitivity property; in particular, if $P_r \impliesp Q_{r'}$ and $Q_{r'}
+\impliespp T_{r''}$ then $P_r \impliesn{p + p'} Q_{r'}$. (This proof is
+provided in appendix~A of the paper, but you are encouraged to only peek if you
+need a hint :)
+
+\paragraph{Part 3.} A common special case will be to take $Q$ to be a
+deterministic event (\ie, the statement does not depend on any randomness).
+This is true in many ZK protocols as we want to ensure some logical (\ie,
+deterministic) statement is true but somehow `reduce' this claim down to an
+easier-to-check claim over a smaller statement with some randomness.
+
+First, show that in this case, $P_r \impliesp Q$ is the same as the statement
+\[
+    \Pr(P_r) \le p
+\]
+when $\neg Q$. (In some way, we may think of this as: the probability of $P_r$,
+given $\neg Q$, is less than $p$. If $p$ is very small, like $2^{-80}$, yet we
+observe $P_r$, then it is very unlikely that $\neg Q$.)
+
+Second, let's say we have $n$ statements, all depending on the same randomness
+$r$, given by $P_r^1 \impliesp Q^1$, $P_r^2 \impliesp Q^2$, until, $P_r^n
+\impliesp Q^n$. Show that
+\[
+    P_r^1 \wedge P_r^2 \wedge \dots \wedge P_r^n \impliesp Q^1 \wedge Q^2 \wedge \dots \wedge Q^n.
+\]
+(We use a special case of this fact in the proof in~\S3.1.2 in the paper.)
+\emph{Hint.} This should be \emph{very} simple. If you find yourself writing more
+than a few lines, then it's likely you're overthinking it!
+
+
+\end{document}
