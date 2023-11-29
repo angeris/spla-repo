@@ -3,7 +3,8 @@
 \usepackage{amsmath, amssymb, url, float, graphicx, float}
 \usepackage{fullpage}
 \usepackage[small,bf]{caption}
-\usepackage{cite}
+\usepackage{versions}
+
 
 \newcommand{\field}{\mathbf{F}}
 \newcommand{\from}{\leftarrow}
@@ -22,6 +23,8 @@
 \let\vec\undefined
 \newcommand{\vec}{\mathbf{vec}}
 
+%\excludeversion{solution}
+\includeversion{solution}
 
 \input defs.tex
 
@@ -63,6 +66,22 @@ and for any other vector $y \in \field^n$,
     A(x + y) = Ax + Ay.
 \]
 (We will make use of this a lot in the proofs of the paper!)
+
+% Note the \begin{solution} ... \end{solution} environment
+% along with the paragraph heading!
+\begin{solution}
+\paragraph{Part 1 solution.} By definition we have that the scaled
+vector $\alpha x$, is simply $x$ with each entry scaled by $\alpha$.
+We can write this as
+\[
+    (\alpha x)_1 = \alpha x_1, \quad \dots, \quad (\alpha x)_n = \alpha x_n.
+\]
+This means that (parsing the meaning of each equality \emph{very carefully}!)
+\[
+    A(\alpha x) = (\alpha x)_1a_1 + \dots + (\alpha x)_na_n = \alpha (x_1 a_1 + \dots + x_n a_n) = \alpha Ax,
+\]
+as required.
+\end{solution}
 
 \paragraph{(H) Part 2.} Let $f: \field^n \to \field^m$ be any linear function that maps
 $n$-vectors to $m$-vectors;
