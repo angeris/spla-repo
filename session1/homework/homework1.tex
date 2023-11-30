@@ -195,6 +195,24 @@ Show that the range $\range(A)$ of any matrix $A \in \field^{m\times n}$ is a
 vector space. (You are welcome to use the solution to problem 1, part 1, even
 if you haven't solved it.)
 
+\begin{solution}
+\paragraph{Part 1 solution.}
+    If we take any two m-vectors $c, d \in \range(A)$. 
+    \[
+        c = x a_1 + x_2 a_2 + \dots + x_n a_n \text{ for some $x \in \field^n$}
+    \]
+    \[
+        d = x' a_1 + x' a_2 + \dots + x'_n a_n \text{ for some $x' \in \field^n$}
+    \]
+    Then for any two scalars $\alpha, \beta \in \field$ we have:
+    \[
+        \alpha c + \beta d = \alpha (x a_1 + x_2 a_2 + \dots + x_n a_n) + \beta (x' a_1 + x' a_2 + \dots + x'_n a_n) = A(\alpha x + \beta x')
+    \]
+    Because of the characterstics of a the finite field vector $\field^n$, we also know
+    that $\alpha x + \beta x' \in \field^n$. Therefore, $\alpha c + \beta d \in \range(A)$. Therefore, the range $\range(A)$ of any matrix $A \in \field^{m\times n}$ is a vector space.
+
+\end{solution}
+
 \paragraph{Part 2.} Using the above, the paper shows in~\S1.1 that the set of
 evaluations of polynomials of degree at most $s$ on a fixed set of points is
 itself a vector space. In particular, if we fix a set of points $\alpha_1,
