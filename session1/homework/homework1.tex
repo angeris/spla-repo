@@ -24,7 +24,7 @@
 \newcommand{\vec}{\mathbf{vec}}
 
 \excludeversion{solution}
-\includeversion{solution}
+% \includeversion{solution}
 
 \input defs.tex
 
@@ -195,24 +195,6 @@ Show that the range $\range(A)$ of any matrix $A \in \field^{m\times n}$ is a
 vector space. (You are welcome to use the solution to problem 1, part 1, even
 if you haven't solved it.)
 
-\begin{solution}
-\paragraph{Part 1 solution.}
-    If we take any two m-vectors $c, d \in \range(A)$. 
-    \[
-        c = x a_1 + x_2 a_2 + \dots + x_n a_n \text{ for some $x \in \field^n$}
-    \]
-    \[
-        d = x' a_1 + x' a_2 + \dots + x'_n a_n \text{ for some $x' \in \field^n$}
-    \]
-    Then for any two scalars $\alpha, \beta \in \field$ we have:
-    \[
-        \alpha c + \beta d = \alpha (x a_1 + x_2 a_2 + \dots + x_n a_n) + \beta (x' a_1 + x' a_2 + \dots + x'_n a_n) = A(\alpha x + \beta x')
-    \]
-    Because of the characterstics of a the finite field vector $\field^n$, we also know
-    that $\alpha x + \beta x' \in \field^n$. Therefore, $\alpha c + \beta d \in \range(A)$. Therefore, the range $\range(A)$ of any matrix $A \in \field^{m\times n}$ is a vector space.
-
-\end{solution}
-
 \paragraph{Part 2.} Using the above, the paper shows in~\S1.1 that the set of
 evaluations of polynomials of degree at most $s$ on a fixed set of points is
 itself a vector space. In particular, if we fix a set of points $\alpha_1,
@@ -250,43 +232,11 @@ We will show three properties we will use throughout the paper.
 \paragraph{Part 1.} Show that $\|y\|_0 = 0$ if, and only if, $y = 0$. (This
 is called \emph{definiteness}.)
 
-\begin{solution}
-\paragraph{Part 1 solution.}
-We have to show that $\|y\|_0 = 0$ if, and only if, $y = 0$.
-Therefore we have to show that: \\
-$\|y\|_0 = 0 \implies y = 0$ and $y = 0 \implies \|y\|_0 = 0$.
-
-\noindent Show $\|y\|_0 = 0 \implies y = 0$: \\
-If $\|y\|_0 = 0$. Then for any $i \in \{1, \dots, n\}$ in vector $y \in \field^n$ we have that $y_i = 0$. Therefore, $y = 0$.
-
-\noindent Show $y = 0 \implies \|y\|_0 = 0$: \\
-If $y = 0$. Then for any $i \in \{1, \dots, n\}$ in vector $y \in \field^n$ we have that $y_i = 0$. Therefore, $\|y\|_0 = 0$.
-
-Therefore, we have shown that $\|y\|_0 = 0$ if, and only if, $y = 0$.
-
-\end{solution}  
-
 \paragraph{Part 2.} Show that, for any two vectors $x, y \in \field^n$
 the \emph{triangle inequality} holds; \ie,
 \[
     \|x + y\|_0 \le \|x\|_0 + \|y\|_0.
 \]
-\begin{solution}
-\paragraph{Part 2 solution.}
-    We want to prove:
-    \[
-        \|x + y\|_0 \le \|x\|_0 + \|y\|_0.
-    \]
-    We iterate over $i \in \{1, \dots, n\}$ and we count the number of non-zero entries in $x + y$ as well as $x$ and $y$ individually.
-    For each $i$ there are three cases:
-        \begin{enumerate}
-            \item $x_i = 0$ and $y_i = 0$. Then also $ x_i + y_i = 0$. Therefore, both sides of the equation increase by 0.
-            \item $x_i = 0$ and $y_i \ne 0$. Then also $ x_i + y_i \ne 0$. Therefore, the left side of the equation increases by 1 and the right side of the equation increases by 1 (as one $y_i \ne 0$).
-            \item $x_i \ne 0$ and $y_i \ne 0$, but $x_i + y_i = 0$. They are the additive inverse to each other. Then, the left side of the equation increases by 0 and the right side of the equation increases by 2 (as both $x_i \ne 0$ and $y_i \ne 0$).
-        \end{enumerate}
-    In all three cases, the right side of the equation increases by at least as much as the left side of the equation. Therefore, we have shown that the triangle equality holds for the $\ell_0$ norm.
-\end{solution}
-
 
 \paragraph{Part 3.} Show that the $\ell_0$ `norm' is zero-homogeneous; \ie,
 \[
@@ -294,15 +244,6 @@ the \emph{triangle inequality} holds; \ie,
 \]
 for any $\alpha \in \field$ that is nonzero, $\alpha \ne 0$. (This should be
 contrasted with a usual norm over the reals or the complex numbers!)
-
-\begin{solution}
-    \paragraph{Part 3 solution.}
-    This directly follow by the definition of scalar multiplication. As $\alpha \ne 0$, we iterate through $i \in \{1, \dots, n\}$ and we count the number of non-zero entries in $\alpha x$ as well as $x$ individually.
-    If $x_i = 0$, then $\alpha x_i = 0$. Therefore, both sides of the equation increase by 0.
-    If $x_i \ne 0$, then $\alpha x_i \ne 0$. Therefore, both sides of the equation increase by 1.
-
-    Therefore, we have shown that the $\ell_0$ norm is zero-homogeneous.
-\end{solution}
 
 \paragraph{Part 4.} A usual thing to do in linear algebra over the real
 numbers is to take an \emph{inner product} of two vectors $x$ and $y$ with
@@ -327,13 +268,6 @@ Show that there is a finite field $\field$ and a nonzero vector $x \in
 this example to show that, for any finite field $\field$, there is always a
 nonzero vector $x \in \field^n$, that is orthogonal to itself. (As a hint, you
 should use the fact that adding 1 to itself $|\field|$ times results in 0.)
-
-\begin{solution}
-    \paragraph{Part 4 solution.}
-    If we take the finite field $\field = \mathbb{Z}_5$ and the vector $x = (1, 2) \in \field^2$. Then we have that $x^Tx = 1 \cdot 1 + 2 \cdot 2 = 0$. Therefore, $x$ is orthogonal to itself. (Esentially you have to find a vector where the sum of the squares of the entries is 0).
-
-    To boil it down to the general case, we can always build the nonzero vector of n stacked 1s (i.e. an n-vector x where $x_i=1$ for all $i \in \{1, \dots, n\}$ ) in a finite field $\field = \mathbb{Z}_n$. Then $x^Tx$ = $ n \cdot 1 = 0$. Therefore, $x$ is orthogonal to itself. This is possible because adding 1 to itself $|F|$ times results in 0.
-\end{solution}
 
 \section{Linear independence and distance}
 In this problem, we will relate the distance of a code with some basic
@@ -360,17 +294,6 @@ has columns; \ie, since $G$ is an $m\times n$ matrix, then $m \ge n$.
 
 \paragraph{Part 1.} Show that a generator matrix $G$ is linearly independent
 if, and only if, its distance $d$ is positive, $d > 0$.
-
-\begin{solution}
-    \paragraph{Part 1 solution.}
-    We have to show both directions, G linearly independent $\implies d > 0$ and G linearly independent $\impliedby d > 0$.
-
-    \noindent $d>0 \implies$ G is linearly independent: \\
-    $d > 0$ implies, that there is no vector except the zero vector where the Matrix vector product with G is equals to 0. Therefore $\nullspace(G)={0}$. Therefore, G is linearly independent.
-
-    \noindent G is linearly independent $ \implies d>0$: \\
-    As G is linearly dependent, no column can be a linear combination of other columns, except the zero vector. $G x$ is a linear combination x of the columns of G. Therefore $\nullspace(G)={0}$. Also, this implies that $G x \ne 0$ for any $x \ne 0$. Therefore, $d > 0$.
-\end{solution}
 
 \paragraph{Part 2.} Given a matrix $G$ which has some distance $d > 0$, show
 that we can remove any $d-1$ rows to get a new matrix $\tilde G \in
