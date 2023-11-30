@@ -271,6 +271,22 @@ the \emph{triangle inequality} holds; \ie,
 \[
     \|x + y\|_0 \le \|x\|_0 + \|y\|_0.
 \]
+\begin{solution}
+\paragraph{Part 2 solution.}
+    We want to prove:
+    \[
+        \|x + y\|_0 \le \|x\|_0 + \|y\|_0.
+    \]
+    We iterate over $i \in \{1, \dots, n\}$ and we count the number of non-zero entries in $x + y$ as well as $x$ and $y$ individually.
+    For each $i$ there are three cases:
+        \begin{enumerate}
+            \item $x_i = 0$ and $y_i = 0$. Then also $ x_i + y_i = 0$. Therefore, both sides of the equation increase by 0.
+            \item $x_i = 0$ and $y_i \ne 0$. Then also $ x_i + y_i \ne 0$. Therefore, the left side of the equation increases by 1 and the right side of the equation increases by 1 (as one $y_i \ne 0$).
+            \item $x_i \ne 0$ and $y_i \ne 0$, but $x_i + y_i = 0$. They are the additive inverse to each other. Then, the left side of the equation increases by 0 and the right side of the equation increases by 2 (as both $x_i \ne 0$ and $y_i \ne 0$).
+        \end{enumerate}
+    In all three cases, the right side of the equation increases by at least as much as the left side of the equation. Therefore, we have shown that the triangle equality holds for the $\ell_0$ norm.
+\end{solution}
+
 
 \paragraph{Part 3.} Show that the $\ell_0$ `norm' is zero-homogeneous; \ie,
 \[
@@ -278,6 +294,15 @@ the \emph{triangle inequality} holds; \ie,
 \]
 for any $\alpha \in \field$ that is nonzero, $\alpha \ne 0$. (This should be
 contrasted with a usual norm over the reals or the complex numbers!)
+
+\begin{solution}
+    \paragraph{Part 3 solution.}
+    This directly follow by the definition of scalar multiplication. As $\alpha \ne 0$, we iterate through $i \in \{1, \dots, n\}$ and we count the number of non-zero entries in $\alpha x$ as well as $x$ individually.
+    If $x_i = 0$, then $\alpha x_i = 0$. Therefore, both sides of the equation increase by 0.
+    If $x_i \ne 0$, then $\alpha x_i \ne 0$. Therefore, both sides of the equation increase by 1.
+
+    Therefore, we have shown that the $\ell_0$ norm is zero-homogeneous.
+\end{solution}
 
 \paragraph{Part 4.} A usual thing to do in linear algebra over the real
 numbers is to take an \emph{inner product} of two vectors $x$ and $y$ with
