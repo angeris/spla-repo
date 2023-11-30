@@ -328,6 +328,13 @@ this example to show that, for any finite field $\field$, there is always a
 nonzero vector $x \in \field^n$, that is orthogonal to itself. (As a hint, you
 should use the fact that adding 1 to itself $|\field|$ times results in 0.)
 
+\begin{solution}
+    \paragraph{Part 4 solution.}
+    If we take the finite field $\field = \mathbb{Z}_5$ and the vector $x = (1, 2) \in \field^2$. Then we have that $x^Tx = 1 \cdot 1 + 2 \cdot 2 = 0$. Therefore, $x$ is orthogonal to itself. (Esentially you have to find a vector where the sum of the squares of the entries is 0).
+
+    To boil it down to the general case, we can always build the nonzero vector of n stacked 1s (i.e. an n-vector x where $x_i=1$ for all $i \in \{1, \dots, n\}$ ) in a finite field $\field = \mathbb{Z}_n$. Then $x^Tx$ = $ n \cdot 1 = 0$. Therefore, $x$ is orthogonal to itself. This is possible because adding 1 to itself $|F|$ times results in 0.
+\end{solution}
+
 \section{Linear independence and distance}
 In this problem, we will relate the distance of a code with some basic
 properties of linear independence.
