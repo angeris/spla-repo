@@ -265,6 +265,17 @@ has columns; \ie, since $G$ is an $m\times n$ matrix, then $m \ge n$.
 \paragraph{Part 1.} Show that a generator matrix $G$ is linearly independent
 if, and only if, its distance $d$ is positive, $d > 0$.
 
+\begin{solution}
+    \paragraph{Part 1 solution.}
+    We have to show both directions, G linearly independent $\implies d > 0$ and G linearly independent $\impliedby d > 0$.
+
+    \noindent $d>0 \implies$ G is linearly independent: \\
+    $d > 0$ implies, that there is no vector except the zero vector where the Matrix vector product with G is equals to 0. Therefore $\nullspace(G)={0}$. Therefore, G is linearly independent.
+
+    \noindent G is linearly independent $ \implies d>0$: \\
+    As G is linearly dependent, no column can be a linear combination of other columns, except the zero vector. $G x$ is a linear combination x of the columns of G. Therefore $\nullspace(G)={0}$. Also, this implies that $G x \ne 0$ for any $x \ne 0$. Therefore, $d > 0$.
+\end{solution}
+
 \paragraph{Part 2.} Given a matrix $G$ which has some distance $d > 0$, show
 that we can remove any $d-1$ rows to get a new matrix $\tilde G \in
 \field^{(m-d + 1)\times n}$ that also has linearly independent columns. Argue that
