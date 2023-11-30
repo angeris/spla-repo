@@ -165,6 +165,23 @@ Show that the range $\range(A)$ of any matrix $A \in \field^{m\times n}$ is a
 vector space. (You are welcome to use the solution to problem 1, part 1, even
 if you haven't solved it.)
 
+\begin{solution}
+\paragraph{Part 1 solution.}
+    If we take any two m-vectors $c, d \in \range(A)$. 
+    \[
+        c = x a_1 + x_2 a_2 + \dots + x_n a_n \text{ for some $x \in \field^n$}
+    \]
+    \[
+        d = x' a_1 + x' a_2 + \dots + x'_n a_n \text{ for some $x' \in \field^n$}
+    \]
+    Then for any two scalars $\alpha, \beta \in \field$ we have:
+    \[
+        \alpha c + \beta d = \alpha (x a_1 + x_2 a_2 + \dots + x_n a_n) + \beta (x' a_1 + x' a_2 + \dots + x'_n a_n) = A(\alpha x + \beta x')
+    \]
+    Because of the characterstics of a the finite field vector $\field^n$, we also know that $\alpha x + \beta x' \in \field^n$. Therefore, $\alpha c + \beta d \in \range(A)$. Therefore, the range $\range(A)$ of any matrix $A \in \field^{m\times n}$ is a vector space.
+\end{solution}
+
+
 \paragraph{Part 2.} Using the above, the paper shows in~\S1.1 that the set of
 evaluations of polynomials of degree at most $s$ on a fixed set of points is
 itself a vector space. In particular, if we fix a set of points $\alpha_1,
@@ -286,6 +303,47 @@ should use the fact that adding 1 to itself $|\field|$ times results in 0.)
 
     To boil it down to the general case, we can always build the nonzero vector of n stacked 1s (i.e. an n-vector x where $x_i=1$ for all $i \in \{1, \dots, n\}$ ) in a finite field $\field = \mathbb{Z}_n$. Then $x^Tx$ = $ n \cdot 1 = 0$. Therefore, $x$ is orthogonal to itself. This is possible because adding 1 to itself $|F|$ times results in 0.
 \end{solution}
+\section{Linear independence and distance}
+In this problem, we will relate the distance of a code with some basic
+properties of linear independence.
+
+From before, we define the \emph{distance} $d$ of a matrix $G \in \field^{m\times n}$
+as
+\[
+    d = \min_{x \ne 0} \|Gx\|_0
+\]
+where $\|y\|_0$ denotes the number of nonzero entries of the vector $y$.
+Similarly, we say that a matrix $G$ has \emph{linearly independent} columns if
+its nullspace contains only the zero vector; \ie, if
+\[
+    \nullspace(G) = \{0\},
+\]
+where the nullspace $\nullspace(G)$ is defined
+\[
+    \nullspace(G) = \{y \in \field^n \mid Gy = 0\}.
+\]
+A basic fact from linear algebra (which you are free to use here) is that any
+matrix $G$ with linearly independent columns has at least as many rows as it
+has columns; \ie, since $G$ is an $m\times n$ matrix, then $m \ge n$.
+
+\paragraph{Part 1.} Show that a generator matrix $G$ is linearly independent
+if, and only if, its distance $d$ is positive, $d > 0$.
+
+\paragraph{Part 2.} Given a matrix $G$ which has some distance $d > 0$, show
+that we can remove any $d-1$ rows to get a new matrix $\tilde G \in
+\field^{(m-d + 1)\times n}$ that also has linearly independent columns. Argue that
+this means that the distance must satisfy
+\[
+    d \le m - n + 1.
+\]
+(This bound on the distance is known as the \emph{Singleton bound} in coding
+theory.) Codes that achieve this bound at equality are known as
+`maximum-distance separable' or MDS codes.
+
+As a fun sidenote: if $G$ is a generator matrix for the Reed--Solomon code
+(see~\S1.3.2), then we know that $d = m - n + 1$, making the Reed--Solomon code
+an MDS code. In a sense, it is the highest-distance code for the chosen
+dimensions (message length and block size).
 
 \section{(Probabilistic?) Implications}
 In this section, we'll explore both `traditional' logic implications
