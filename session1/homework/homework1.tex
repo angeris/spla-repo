@@ -349,5 +349,17 @@ $r$, given by $P_r^1 \impliesp Q^1$, $P_r^2 \impliesp Q^2$, until, $P_r^n
 \emph{Hint.} This should be \emph{very} simple. If you find yourself writing more
 than a few lines, then it's likely you're overthinking it!
 
+\paragraph{Solutions}
+
+\paragraph{Part 3 Solution.}
+
+As in the hypotheses, suppose $Q$ is a deterministic event that is false. By definition, $P_r \impliesp Q$ is equivalent to $\Pr(P_r \wedge \neg Q) \le p$. However, $\Pr(P_r \wedge \neg Q) = \Pr(P_r)$ because $P_r\wedge \neg Q$ if and only if $P_r$ as $\neg Q$ is true by assumption. Hence, $\Pr(P_r \wedge \neg Q) \le p$ is equivalent to $\Pr(P_r) \le p$ as required.
+
+As in the hypothesis suppose we have $P_r^1 \impliesp Q^1, P_r^2 \impliesp Q^2, \ldots, P_r^n \impliesp Q^n$ where $Q^1,Q^2,\ldots, Q^n$ are deterministic events. Then $Q^1\wedge\ldots\wedge Q^n$ is a deterministic event. We will proceed by cases. 
+
+For the first case suppose that $Q^1\wedge\ldots\wedge Q^n$ is true. It is a fact that the statement $A_r \impliesp B$ is true when $B$ is a deterministic event that is true. (Recall, in this case $A_r\wedge \neg B$ is never true so has probability zero) Applying this fact we get that the the original implication is true when $Q^1\wedge\ldots\wedge Q^n$ is false. 
+
+For the second case, suppose that $Q^1\wedge\ldots\wedge Q^n$ is false. This implies that for some $1\le i\le n$ that $Q^i$ is false. Recall that we already assumed $P_r^i\impliesp Q^i$. Applying the first part of the solution to $P_r^i\impliesp Q^i$ we get $\Pr(P_r^i)\leq p$. Finally, $\Pr(P_r^1\wedge\ldots\wedge P_r^n) \le \Pr(P_r^i)\le p$. Note that $\Pr(P_r^1\wedge\ldots\wedge P_r^n) \le p$ is equivalent to the original implication under our assumption that the $Q^1,\ldots,Q^n$ were deterministic events.
+
 
 \end{document}
