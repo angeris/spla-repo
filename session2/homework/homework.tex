@@ -40,7 +40,7 @@ None of the solutions to these exercises should be more than a few lines long.
 If you find yourself writing more than half a page or so for a solution,
 there's probably a simpler way! (Of course, \emph{finding} the simpler way
 might not, itself, be so simple.) Problem parts beginning with an {\bf (H)} are
-harder problems. The problems in this homework correspond to~\S2-3 of the paper
+harder parts. The problems in this homework correspond to~\S2-3 of the paper
 `Succinct Proofs and Linear Algebra' by Evans and Angeris; you are encouraged
 to read through this section, and watch session 2 of the SPLA Study Group
 sessions before starting this homework.
@@ -215,11 +215,11 @@ $r$ and $r'$. That is, for any $\alpha \in \field$, we have
 \[
     \Pr((G'x)_r = \alpha) = \Pr(x_{r'} = \alpha),
 \]
-where $r$ is uniformly drawn from $1, \dots, m$, and $r'$ is uniformly drawn
+where $r$ is uniformly drawn from $1, \dots, m'$, and $r'$ is uniformly drawn
 from $1, \dots, n$. Show that this implies that the distance $d'$ of $G'$
 always satisfies
 \[
-    \frac{d'}{m} \le \frac{1}{n}.
+    \frac{d'}{m'} \le \frac{1}{n}.
 \]
 In other words, the error bound is no better than the one for the matrix you
 found in part 1. This, combined with part 4, shows that we essentially always
@@ -243,16 +243,17 @@ $d' > 0$.
 \[
     (Gx)_r = 0 \quad \impliesp \quad x = 0,
 \]
-where $p \le 1 - d/m$. The matrix zero check states that
+where $p \le 1 - d/m$ and $r$ is uniformly selected from $1, \dots, n$. The
+matrix zero check states that
 \[
-    G_{r1}'y_1 + G_{r2}'y_2 + \dots + G_{rk}'y_k = 0 \quad \impliespp \quad Y = 0,
+    G_{r'1}'y_1 + G_{r'2}'y_2 + \dots + G_{r'k}'y_k = 0 \quad \impliespp \quad Y = 0,
 \]
-where $p' \le 1-d'/m'$. Note that the quantity on the left hand side of the
-matrix zero check is a vector. Using probabilistic implications, show how one
-can apply the vector zero check to this quantity and give a simple bound on the
-error probability in terms of $p$ and $p'$. This should give you a result
-that lets you check that a matrix $Y$ is zero by checking, instead, that
-a single field element is equal to zero.
+where $p' \le 1-d'/m'$ and $r'$ is uniformly selected from $1, \dots, m'$. Note
+that the quantity on the left hand side of the matrix zero check is a vector.
+Using probabilistic implications, show how one can apply the vector zero check
+to this quantity and give a simple bound on the error probability in terms of
+$p$ and $p'$. This should give you a result that lets you check that a matrix
+$Y$ is zero by checking, instead, that a single field element is equal to zero.
 
 \paragraph{(H) Part 2.} Let $m=m'$, $k=n$, and let $G$ and $G'$ now be
 Reed--Solomon code matrices over evaluation points $\alpha_1, \dots, \alpha_m$.
