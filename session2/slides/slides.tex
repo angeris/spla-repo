@@ -1,0 +1,430 @@
+\documentclass{beamer}
+
+\let\phi\varphi
+\newcommand{\field}{\mathbf{F}}
+\newcommand{\impliesn}[1]{\underset{#1}{\implies}}
+\newcommand{\iffn}[1]{\underset{#1}{\iff}}
+\newcommand{\impliesp}{\impliesn{p}}
+\newcommand{\iffp}{\iffn{p}}
+\newcommand{\impliespp}{\impliesn{p'}}
+\newcommand{\iffpp}{\iffn{p'}}
+\newcommand{\ex}{\mathbf{E}}
+
+
+\mode<presentation>
+{
+\usetheme{default}
+}
+\setbeamertemplate{navigation symbols}{}
+\usecolortheme[rgb={0.13,0.28,0.59}]{structure}
+\setbeamertemplate{itemize subitem}{--}
+\setbeamertemplate{frametitle} {
+        \begin{center}
+          {\large\bf \insertframetitle}
+        \end{center}
+}
+
+\newcommand\footlineon{
+  \setbeamertemplate{footline} {
+    \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,leftskip=.8cm,rightskip=.6cm]{structure}
+      \footnotesize \insertsection
+      \hfill
+      {\insertframenumber}
+    \end{beamercolorbox}
+    \vskip 0.45cm
+  }
+}
+\footlineon
+
+\AtBeginSection[]
+{       
+        \begin{frame}<beamer> 
+                \frametitle{Outline} 
+                \tableofcontents[currentsection,currentsubsection]
+        \end{frame}
+}
+
+% \usepackage{subcaption}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{matrix, positioning}
+
+\makeatletter
+\def\mathcolor#1#{\@mathcolor{#1}}
+\def\@mathcolor#1#2#3{%
+  \protect\leavevmode
+  \begingroup
+    \color#1{#2}#3%
+  \endgroup
+}
+\makeatother
+
+\title{Common Tools in Succinct Proofs}
+\author{Guillermo Angeris \and Alex Evans}
+\date{Session 2, SPLA Study Club}
+
+\input{defs.tex}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+    \section{Overview}
+    \begin{frame}
+        \frametitle{Quick recap}
+        \begin{itemize}\itemsep=12pt
+            \item Last session was mostly pure math
+            \item This one, we will start doing real(-ish!) stuff
+            \pause
+            \item Let's put some of the previous tools to the test!
+        \end{itemize}
+	\end{frame}
+
+    \begin{frame}
+        \frametitle{High level overview}
+        \begin{itemize}\itemsep=12pt
+            \item We're going to start by discussing \emph{models}
+            \item Then progress onto specific tools
+            \item Will mostly deal with `exact' checks
+            \item (Leave `sparse' checks for homework/paper)
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{In other words...}
+        \pause
+        \begin{center}
+            {\Large Let's build up the toolbox!} 
+        \end{center}
+    \end{frame}
+
+    \section{Randomness}
+    \begin{frame}
+        \frametitle{Why does randomness help?}
+        \begin{itemize}\itemsep=12pt
+            \item Want to certify that some given vector $x \in \field^n$ is \emph{sparse}
+            \item Say check that $\le 10\%$ of entries are nonzero
+            \pause
+            \item Can start checking until we see $90\%$ of entries are nonzero
+            \item If the vector is large, this is not great
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Randomness (continued)}
+        \begin{itemize}\itemsep=12pt
+            \item Checking every element requires $\sim n$ checks
+            \item If $n = 2^{20}$, that's a lot of queries
+            \pause
+            \item If instead we care that $\le 10\%$ of entries are nonzero
+            \item Can be certain (up to $2^{-100}$ probability) with $< 700$ queries!
+            \pause
+            \item See homework :)
+        \end{itemize}
+    \end{frame}
+
+    \section{Models}
+    \begin{frame}
+        \frametitle{What are models?}
+        \begin{itemize}\itemsep=12pt
+            \item \emph{Models} are how we `encapsulate' interactions
+            \item Along with cryptographic tools needed
+            \pause
+            \item We will discuss two models of interaction
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Direct access model}
+        \begin{itemize}\itemsep=12pt
+            \item The first is the \emph{direct model}
+            \pause
+            \item There exists a vector $x \in \field^n$
+            \item We would like to verify some claim $Q$ about $x$
+            \item Can query entries of $x$ (\eg, can query $x_i$)
+        \end{itemize}
+    \end{frame}
+
+
+    \begin{frame}
+        \frametitle{Coding model}
+        \begin{itemize}\itemsep=12pt
+            \item The second is the \emph{coding model}
+            \pause
+            \item We have a (known) code matrix $G\in \field^{m \times n}$
+            \item There exists some message $x \in \field^n$
+            \item Would like to verify some claim $Q$ about $x$
+            \item Can query individual \emph{symbols} of the encoded message $Gx$
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Truthfulness and commitments}
+        \begin{itemize}\itemsep=12pt
+            \item By assumption, the models require truthfulness
+            \item In general, this is achieved via cryptographic techniques
+            \item Ex.: the direct model can be achieved via a Merkle tree
+            \item We elide this here! (But it is fascinating and worth studying)
+        \end{itemize}
+    \end{frame}
+
+    \section{Exact checks}
+    \begin{frame}
+        \frametitle{Exact check model}
+        \begin{itemize}\itemsep=12pt
+            \item Exact checks work in the coding model
+            \item Very hard in the direct access model
+            \pause
+            \item See homework exercises!
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Set up}
+        \begin{itemize}\itemsep=12pt
+            \item For the remainder of section: fix a code matrix $G \in \field^{m \times n}$
+            \item Code has distance $d > 0$
+            \item And $r$ will be uniformly drawn from $\{1,\dots, m\}$
+            \item (Think of $r$ as drawing a uniformly random row of $G$)
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Zero check}
+        \begin{itemize}\itemsep=12pt
+            \item Let's start with the simplest check
+            \item Given some $x \in \field^n$, would like to check $x = 0$
+            \pause
+            \item Randomly sample $r$ and then check if $(Gx)_r = 0$
+            \pause
+            \item We can write this as
+            \[
+                (Gx)_r = 0 \quad \impliesp \quad x = 0
+            \]
+            \item Here, $p \le 1 - d/m$
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Intuition}
+        \begin{figure}
+            \centering
+            \includegraphics[width=.7\textheight]{images/zerocheck.pdf}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Discussion}
+        \begin{itemize}\itemsep=12pt
+            \item Equivalent to 1D Schwartz--Zippel lemma
+            \item But for general linear codes!
+            \item (Schwartz--Zippel is the special case of Reed--Solomon)
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Matrix zero check}
+        \begin{itemize}\itemsep=12pt
+            \item Instead of a vector $x$, let's check a matrix $X \in \field^{k \times n}$
+            \item Ask the same question: does $X = 0$?
+            \pause
+            \item Idea: encode each row of $X$ and check if \emph{that} is zero!
+            \pause
+            \item Let $\tilde x_i$ denote $i$th row, then
+            \[
+                (G\tilde x_1)_r = 0, ~ \dots, ~ (G\tilde x_n)_r = 0\quad  \impliesp \quad X = 0
+            \]
+            \vspace{-2em}
+            \pause
+            \item What should $p$ be here? (See homework 1, exercise 5!)
+        \end{itemize}
+    \end{frame}
+
+
+    \begin{frame}
+        \frametitle{Matrix zero check (equiv.)}
+        \begin{itemize}\itemsep=12pt
+            \item Another (identical) way of writing this:
+            \begin{enumerate}\itemsep=8pt
+                \item Pick random row $r$ from $G$
+                \item Use row to take linear combination of cols $x_1, \dots, x_n$ of $X$
+                \item Check if this linear combination is zero
+            \end{enumerate}
+            \pause
+            \item We can write this as:
+            \[
+                G_{r1}x_1 + \dots + G_{rn} x_n = 0 \quad \impliesp \quad X = 0
+            \]
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Reduced matrix zero check}
+        \begin{itemize}\itemsep=12pt
+            \item Let's get funky!
+            \pause
+            \item The vector zero check goes
+            \[
+                \text{Vector}\stackrel{?}{=}0 \quad \to \quad \text{Scalar}\stackrel{?}{=}0
+            \]
+            \vspace{-2em}
+            \pause
+            \item The matrix zero check goes
+            \[
+                \text{Matrix}\stackrel{?}{=}0 \quad \to \quad \text{Vector}\stackrel{?}{=}0
+            \]
+            \vspace{-2em}
+            \pause
+            \item Can we `put them together'? \pause (Yes! See homework)
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Aside: reduced matrix zero check}
+        \begin{itemize}\itemsep=12pt
+            \item This check is a Schwartz--Zippel generalization
+            \item Indeed, we get the same bounds for Reed--Solomon codes
+            \item (But can get better ones! See~\S3.1.3 of the paper)
+            \item Shows Schwartz--Zippel is not tight (by a very small factor...)
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Vector subspace check}
+        \begin{itemize}\itemsep=12pt
+            \item The `final' boss
+            \pause
+            \item Let's start with some matrix $X \in \field^{k \times n}$
+            \item Want to check if all columns of $X$ are in a subspace $V \subseteq \field^k$
+            \item Can we do this cheaply?
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Vector subspace check}
+        \begin{itemize}\itemsep=12pt
+            \item Let's do something similar to matrix zero check:
+            \begin{enumerate}\itemsep=8pt
+                \item Pick random row $r$
+                \item Use row for linear combination of columns of $X$
+                \item Check if linear combination lies in $V$
+            \end{enumerate}
+            \pause
+            \item We can write this as
+            \[
+                G_{r1}x_1 + \dots + G_{rn} x_n \in V \quad\impliesp\quad x_i \in V,~~i=1,\dots,n
+            \]
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Proof via probabilistic implications}
+        \begin{itemize}\itemsep=12pt
+            \item Let $C$ be parity check matrix for $V$
+            \item Then
+            \[
+                G_{r1}x_1 + \dots + G_{rn} x_n \in V ~~\text{implies}~~ C(G_{r1}x_1 + \dots + G_{rn} x_n) = 0
+            \]
+            \vspace{-2em}
+            \pause
+            \item But, by linearity (see homework 1, problem 1)
+            \[
+                0 = C(G_{r1}x_1 + \dots + G_{rn} x_n) = G_{r1}(Cx_1) + \dots + G_{rn}(Cx_n)
+            \]
+            \item Note the last quantity!
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Proof via probabilistic implications (cont.)}
+        \begin{itemize}\itemsep=12pt
+            \item From before,
+            \[
+                G_{r1}(Cx_1) + \dots + G_{rn}(Cx_n) = 0
+            \]
+            \item But, this is just the matrix zero check! \pause So,
+            \[
+                G_{r1}(Cx_1) + \dots + G_{rn}(Cx_n) = 0 \quad\impliesp\quad Cx_1 =\dots= Cx_n = 0
+            \]
+            \vspace{-2em}
+            \pause
+            \item By definition of parity check matrix then
+            \[
+                Cx_1 = \dots = Cx_n = 0 \quad \text{implies} \quad x_1, \dots, x_n \in V
+            \]
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Putting it all together}
+        \begin{itemize}\itemsep=12pt
+            \item We only used one implication with error $p$ (matrix zero check)
+            \item Rest were all `standard' implications (\ie, zero error)
+            \item This means that we can write:
+            \[
+                G_{r1}x_1 + \dots + G_{rn} x_n \in V \quad\impliesp\quad x_i \in V,~~i=1,\dots,n
+            \]
+            \item Where $p$ is the same as the matrix zero check from before
+        \end{itemize}
+    \end{frame}
+    \section{Sparse checks}
+    \begin{frame}
+        \frametitle{Analogues of exact checks}
+        \begin{itemize}\itemsep=12pt
+            \item There is a sparse analogue of each exact check
+            \item We will not explore proofs here (as they are more complicated)
+            \item But check the paper (and the homework!) for some of these
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Sparse checks}
+        \begin{itemize}\itemsep=12pt
+            \item We will use two types of sparse checks for next lecture
+            \item One will be in homework (standard sparsity check)
+            \item The other will have a proof outline next lecture
+            \pause
+            \item It's good to be comfortable with notation before that :)
+        \end{itemize}
+    \end{frame}
+
+%    \begin{frame}
+%        \frametitle{Proof outline ($n=2$)}
+%        \begin{itemize}\itemsep=12pt
+%            \item Split $d(X, V) \ge d'/2$ up into two cases:
+%            \vspace{.3em}
+%            \begin{enumerate}\itemsep=8pt
+%                \item There exists $v \in \field^2$ with $\|Xv - V\|_0 > 2q$
+%                \item For every $v \in \field^2$: $\|Xv - V\|_0 \le 2q$
+%            \end{enumerate}
+%            \pause
+%            \item Case (1) we `catch' with high probability (`easy' case)
+%            \item Case (2) means $2q < d'/2$; can find $y \in V$ closest to $Xv$
+%            \item Second case reduces to matrix sparsity check!
+%            \pause
+%            \item See paper for details!
+%        \end{itemize}
+%    \end{frame}
+
+    \section{Where to?}
+    \begin{frame}
+        \frametitle{Summary}
+        \begin{itemize}\itemsep=12pt
+            \item Rewrote a bunch of tools used in many papers!
+            \item Some maybe felt familiar
+            \item But did all of them in very short order
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Next lecture}
+        \begin{itemize}\itemsep=12pt
+            \item We will see how to apply these tools to explain FRI
+            \item (As a quasi-`capstone' project)
+            \item But many more applications exist :)
+        \end{itemize}
+    \end{frame}
+\end{document}
