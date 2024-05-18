@@ -95,7 +95,8 @@ This means:
                  &= (x_1 a_1 + \dots + x_n a_n) + (y_1 a_1 + \dots + y_n a_n) = Ax + Ay.
     \end{aligned}
 \]
-Again, remember to parse the second equality very carefully!
+Again, remember to parse the second equality very carefully! (Solution
+contributed by \verb|@Phillip-Kemper|.)
 \end{solution}
 
 \paragraph{(H) Part 2.} Let $f: \field^n \to \field^m$ be any linear function that maps
@@ -147,19 +148,19 @@ This new function $w$ corresponds to taking the output $f(x)$, which is an
 $m$-vector, and passing it through $h$. Show that $w$ is also linear.
 
 \begin{solution}
-\paragraph{Part 3 solution.}
-
-We know that $f$ and $h$ are linear functions, and $w: \field^n \to
-\field^k$. Then for any $\alpha \in \field$ and any $x \in \field^n$ we have:
-
+\paragraph{Part 3 solution.} Since we know that $f$ and $h$ are linear
+functions, let's try and see if we can just prove linearity from its definition
+directly. Let $\alpha \in \field$ be any scalar and $x \in \field^n$ be an
+$n$-vector, then we have:
 \[
-    w(\alpha x) = h(f(\alpha x)) = h(\alpha f(x)) = \alpha h(f(x)) = \alpha w(x)
+    w(\alpha x) = h(f(\alpha x)) = h(\alpha f(x)) = \alpha h(f(x)) = \alpha w(x).
 \]
-and for any other vector $y \in \field^n$:
+Similarly, for any other vector $y \in \field^n$:
 \[
-    w(x + y) = h(f(x + y)) = h(f(x) + f(y)) = h(f(x)) + h(f(y)) = w(x) + w(y)
+    w(x + y) = h(f(x + y)) = h(f(x) + f(y)) = h(f(x)) + h(f(y)) = w(x) + w(y),
 \]
-Therefore, $w$ is also linear.
+which means that the function $w$ is also linear. (Solution contributed by
+\verb|@Phillip-Kemper|.)
 
 \end{solution}
 
