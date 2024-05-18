@@ -207,6 +207,25 @@ Show that the range $\range(A)$ of any matrix $A \in \field^{m\times n}$ is a
 vector space. (You are welcome to use the solution to problem 1, part 1, even
 if you haven't solved it.)
 
+\begin{solution}
+\paragraph{Part 1 solution.} Take any two $m$-vectors, $y, z \in \range(A)$,
+then, by definition of the range $\range(A)$, there exists $y' \in \field^n$
+and $z' \in \field^n$ such that
+\[
+    y = Ay' \qquad \text{and} \qquad z = Az'.
+\]
+(In other words, $y$ and $z$ can be written as linear combinations of the
+columns of $A$, with coefficients $y'$ and $z'$, respectively, from the
+definition in problem 1.) Then, for any two scalars $\alpha, \beta \in \field$
+we have:
+\[
+    \alpha y + \beta z = \alpha Ay' + \beta Az' = A(\alpha y') + A(\beta z') = A(\alpha y' + \beta z').
+\]
+In other words, $\alpha y + \beta z$ is also a linear combination of the
+columns of $A$ and therefore in its range, $\range(A)$.
+\end{solution}
+
+
 \paragraph{Part 2.} Using the above, the paper shows in~\S1.1 that the set of
 evaluations of polynomials of degree at most $s$ on a fixed set of points is
 itself a vector space. In particular, if we fix a set of points $\alpha_1,
