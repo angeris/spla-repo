@@ -93,7 +93,21 @@ This means that (parsing the meaning of each equality \emph{very carefully}!)
 \]
 as required.
 
-XXX: Complete the rest of the problem solution.
+For the second part, note that by definition, we have that the added vector $x
++ y$, is simply each entry of the two $n$-vectors added together. We can write
+this as
+\[
+    (x + y)_1 = x_1 + y_1, \quad \dots, \quad (x + y)_n = x_n + y_n.
+\]
+This means:
+\[
+    \begin{aligned}
+        A(x + y) &= (x_1 + y_1) a_1 + (x_2 + y_2) a_2 +  \dots + (x_n + y_n) a_n\\
+                 &= (x_1 a_1 + \dots + x_n a_n) + (y_1 a_1 + \dots + y_n a_n) = Ax + Ay.
+    \end{aligned}
+\]
+Again, remember to parse the second equality very carefully! (Solution
+contributed by \verb|@Phillip-Kemper|.)
 \end{solution}
 
 \paragraph{(H) Part 2.} Let $f: \field^n \to \field^m$ be any linear function that maps
@@ -143,6 +157,23 @@ as a linear combination of the basis vectors,
 \]
 This new function $w$ corresponds to taking the output $f(x)$, which is an
 $m$-vector, and passing it through $h$. Show that $w$ is also linear.
+
+\begin{solution}
+\paragraph{Part 3 solution.} Since we know that $f$ and $h$ are linear
+functions, let's try and see if we can just prove linearity from its definition
+directly. Let $\alpha \in \field$ be any scalar and $x \in \field^n$ be an
+$n$-vector, then we have:
+\[
+    w(\alpha x) = h(f(\alpha x)) = h(\alpha f(x)) = \alpha h(f(x)) = \alpha w(x).
+\]
+Similarly, for any other vector $y \in \field^n$:
+\[
+    w(x + y) = h(f(x + y)) = h(f(x) + f(y)) = h(f(x)) + h(f(y)) = w(x) + w(y),
+\]
+which means that the function $w$ is also linear. (Solution contributed by
+\verb|@Phillip-Kemper|.)
+
+\end{solution}
 
 \paragraph{(H) Part 4.} From part 2, we know that $w(x) = Dx$ for some matrix
 $D \in \field^{k \times n}$ as it, too, is a linear function. If $f(x) = Ax$

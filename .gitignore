@@ -1,5 +1,7 @@
 # Mac silliness
 .DS_Store
+*.aux
+*.log
 
 # LaTeX temporary files
 *.aux
