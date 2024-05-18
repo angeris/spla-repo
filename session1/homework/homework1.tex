@@ -23,8 +23,8 @@
 \let\vec\undefined
 \newcommand{\vec}{\mathbf{vec}}
 
-\excludeversion{solution}
-%\includeversion{solution}
+%\excludeversion{solution}
+\includeversion{solution}
 
 \input defs.tex
 
@@ -82,20 +82,20 @@ This means that (parsing the meaning of each equality \emph{very carefully}!)
 \]
 as required.
 
-By definition we have that the added vector $x + y$, is simply each entry of the two n-vectors added together.
-We can write this as
+For the second part, note that by definition, we have that the added vector $x
++ y$, is simply each entry of the two $n$-vectors added together. We can write
+this as
 \[
     (x + y)_1 = x_1 + y_1, \quad \dots, \quad (x + y)_n = x_n + y_n.
 \]
-
-This means, that:
+This means:
 \[
-    A(x + y) \stackrel{(1)}{=} (x_1 + y_1) a_1 + (x_2 + y_2) a_2 + \quad \dots + (x_n + y_n) a_n
+    \begin{aligned}
+        A(x + y) &= (x_1 + y_1) a_1 + (x_2 + y_2) a_2 +  \dots + (x_n + y_n) a_n\\
+                 &= (x_1 a_1 + \dots + x_n a_n) + (y_1 a_1 + \dots + y_n a_n) = Ax + Ay.
+    \end{aligned}
 \]
-This is equal to:
-\[
-    (x_1 a_1 + \dots + x_n a_n) + (y_1 a_1 + \dots + y_n a_n) \stackrel{(1)}{=} Ax + Ay
-\]
+Again, remember to parse the second equality very carefully!
 \end{solution}
 
 \paragraph{(H) Part 2.} Let $f: \field^n \to \field^m$ be any linear function that maps
