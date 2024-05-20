@@ -263,11 +263,50 @@ We will show three properties we will use throughout the paper.
 \paragraph{Part 1.} Show that $\|y\|_0 = 0$ if, and only if, $y = 0$. (This
 is called \emph{definiteness}.)
 
+
+\begin{solution}
+
+\paragraph{Part 1 solution.} This is almost silly, but it's always worth
+writing out. First, we'll show the reverse direction. Clearly if $y=0$, then no
+index of $y$ is nonzero, so we must have that $\|y\| = 0$. Conversely, let
+$\|y\| = 0$, then this means that no index of $y$ is nonzero. In other words,
+every index of $y$ is equal to zero, so $y$ must also be zero.
+(Solution contributed by \verb|@Phillip-Kemper|.)
+\end{solution}
+
 \paragraph{Part 2.} Show that, for any two vectors $x, y \in \field^n$
 the \emph{triangle inequality} holds; \ie,
 \[
     \|x + y\|_0 \le \|x\|_0 + \|y\|_0.
 \]
+
+\begin{solution}
+\paragraph{Part 2 solution.} We want to prove:
+\[
+ \|x + y\|_0 \le \|x\|_0 + \|y\|_0.
+\]
+In other words: the number of nonzero entries in $x+y$ is no more than the
+number of nonzero entries of $x$, added to the number of nonzero entries of
+$y$. To show this, we will count the number of nonzero entries on the left hand
+side, and show that it is always no larger than the number of nonzero entries
+on the right hand side.
+
+An entry $i$ is counted on the left hand side if $(x+y)_i\ne 0$, while an entry
+$i$ is counted on the right hand side if either one of $x_i$ or $y_i$ is not
+zero. (If both are not zero, then this entry is double counted!) Broken
+down into cases:
+\begin{enumerate}
+    \item Both $x_i = y_i = 0$. In this case we know that $x_i + y_i = (x +
+        y)_i = 0$, so this index is counted as zero in both sides
+    \item At least one of $x_i \ne 0$ or $y_i \ne 0$. In this case, then $x_i
+        + y_i = (x + y)_i$ is either zero or nonzero, adding at most one
+        entry, but the right hand side adds at \emph{least} one entry, so the
+        inequality holds
+\end{enumerate}
+Adding these cases up over the each index $i=1, \dots, n$, we get the result.
+(Solution contributed by \verb|@Phillip-Kemper|.)
+
+\end{solution}
 
 \paragraph{Part 3.} Show that the $\ell_0$ `norm' is zero-homogeneous; \ie,
 \[
@@ -275,6 +314,14 @@ the \emph{triangle inequality} holds; \ie,
 \]
 for any $\alpha \in \field$ that is nonzero, $\alpha \ne 0$. (This should be
 contrasted with a usual norm over the reals or the complex numbers!)
+
+\begin{solution}
+\paragraph{Part 3 solution.} This is fairly direct as well: show that if $y_i$
+is nonzero, then $\alpha y_i$ is also not zero. (The converse, if $y_i = 0$
+then $\alpha y_i = 0$ is immediate.) This will show that the number of nonzero
+entries in $y$ and the number of nonzero entries in $\alpha y$ is the same.
+(Solution contributed by \verb|@Phillip-Kemper|.)
+\end{solution}
 
 \paragraph{Part 4.} A usual thing to do in linear algebra over the real
 numbers is to take an \emph{inner product} of two vectors $x$ and $y$ with
@@ -299,6 +346,22 @@ Show that there is a finite field $\field$ and a nonzero vector $x \in
 this example to show that, for any finite field $\field$, there is always a
 nonzero vector $x \in \field^n$, that is orthogonal to itself. (As a hint, you
 should use the fact that adding 1 to itself $|\field|$ times results in 0.)
+
+\begin{solution}
+\paragraph{Part 4 solution.} Possibly the simplest example is to consider
+the finite field $\field = \{0, 1\}$. In this field $1 + 1 = 0$, so, defining
+$x = (1,1)$ means that
+\[
+    x^Tx = 1\cdot 1 + 1\cdot1 = 1+1 = 0.
+\]
+We can extend this example to any field using the hint. If we have a vector
+$x \in \field^{|\field|}$, then setting $x = (1, \dots, 1)$ to be the all-ones
+vector, we find
+\[
+    x^Tx = \underbrace{1 + 1 + \dots + 1}_\text{$|\field|$ times} = 0.
+\]
+(Solution contributed by \verb|@Phillip-Kemper|.)
+\end{solution}
 
 \section{Linear independence and distance}
 In this problem, we will relate the distance of a code with some basic
