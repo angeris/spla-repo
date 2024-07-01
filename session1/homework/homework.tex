@@ -5,7 +5,6 @@
 \usepackage[small,bf]{caption}
 \usepackage{versions}
 
-
 \newcommand{\field}{\mathbf{F}}
 \newcommand{\from}{\leftarrow}
 \newcommand{\impliesn}[1]{\underset{#1}{\implies}}
@@ -386,13 +385,31 @@ A basic fact from linear algebra (which you are free to use here) is that any
 matrix $G$ with linearly independent columns has at least as many rows as it
 has columns; \ie, since $G$ is an $m\times n$ matrix, then $m \ge n$.
 
-\paragraph{Part 1.} Show that a generator matrix $G$ is linearly independent
-if, and only if, its distance $d$ is positive, $d > 0$.
+\paragraph{Part 1.} Show that a generator matrix $G$ has linearly independent
+columns if, and only if, its distance $d$ is positive, $d > 0$.
+
+\begin{solution}
+\paragraph{Part 1 solution.} First, the reverse implication: if $d > 0$, then
+$G$ is linearly independent. If $d > 0$, then, by definition of distance, for
+any $x \ne 0$, we have that $\|Gx\| \ge d > 0$, so $Gx$ cannot be zero. (Why?)
+This means that the null space of $G$ can only contain the zero vector, since
+any other vector, say $x \ne 0$, results in $Gx \ne 0$, so $G$ has linearly
+independent columns.
+
+For the forward implication, we have that $G$ has linearly independent columns.
+By definition, this means that the only vector $x$ for which $Gx = 0$ is $x =
+0$. In other words, if $x \ne 0$, then $Gx \ne 0$, so $\|Gx\| > 0$ for any $x
+\ne 0$. In particular, since we know at least one entry of $Gx$ is nonzero, we
+have that the number of nonzero entries, $\|Gx\| \ge 1$, for any $x\ne 0$, so
+the distance $d$ satisfies at least $d \ge 1$, as required.
+(Solution contributed by \verb|@Phillip-Kemper|.)
+
+\end{solution}
 
 \paragraph{Part 2.} Given a matrix $G$ which has some distance $d > 0$, show
 that we can remove any $d-1$ rows to get a new matrix $\tilde G \in
-\field^{(m-d + 1)\times n}$ that also has linearly independent columns. Argue that
-this means that the distance must satisfy
+\field^{(m-d + 1)\times n}$ that also has linearly independent columns. Argue
+that this means that the distance must satisfy
 \[
     d \le m - n + 1.
 \]
