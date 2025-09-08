@@ -149,6 +149,42 @@ as a linear combination of the basis vectors,
     \end{bmatrix}.
 \]
 
+\begin{solution}
+\paragraph{Part 2 solution.} 
+Recall the definition of matrix vector multiplication for $A \in \field^{m \times n }$, $x \in \field^n$, and $a_{0, \dots , i}$ denote the columns of $A$ as $m$-vectors:
+\[
+Ax = \sum_{i=0}^{n} a_{n}x_{n}
+\]
+
+Given that $f(x)$ is a linear function, we can break up its input $x \in F^n$ into the summation of its elements multiplied by corresponding basis vectors:
+\[
+f(x) = f(x_{0}\begin{bmatrix}
+        1\\0\\\vdots\\0
+    \end{bmatrix} + \dots + x_{n}\begin{bmatrix}
+        0\\0\\\vdots\\1
+    \end{bmatrix})
+\]
+For brevity we will denote the basis vectors with $e_{0}, \dots , e_{n}$, and we have
+\[
+f(x) = f(x_{0}e_{0} + \dots + x_{n}e_{n})
+\]
+By the definition of linearity, we have:
+\[
+f(x_{0}e_{0} + \dots + x_{n}e_{n}) = \sum_{i=0}^{n}f(x_{i}e_{i}) = \sum_{i=0}^{n}x_{i}f(e_{i})
+\]
+We can construct a matrix $A \in \field^{m \times n}$ with columns $a_{0}, \dots , a_{n}$ equal to $m$-vectors obtained by evaluating $f$ on the basis vectors.
+\[
+A = \begin{bmatrix} f(e_{0}) , & \dots &, f(e_{n}) \end{bmatrix}
+\]
+By the definition of matrix-vector multiplication, we have
+\[
+f(x) = Ax
+\]
+(Solution
+contributed by \verb|@colludingnode|.)
+\end{solution}
+
+
 \paragraph{Part 3.} Say we have a second linear function $h: \field^m \to
 \field^k$. Let's define the new function
 \[
