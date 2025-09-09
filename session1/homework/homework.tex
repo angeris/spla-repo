@@ -184,6 +184,27 @@ tools, but you should not use other knowledge of linear algebra for this
 question! Only the matrix-vector product from the definition
 in~\eqref{eq:mat-mul} is necessary.)
 
+\begin{solution}
+Since $h$ and $f$ are linear functions, we know they correspond to multiplication by some matrices $B$ and $A$ respectively. We have:
+\[
+w(x) = Dx
+\]
+and
+\[
+w(x) = B(Ax)
+\]
+
+Let's define the matrix $D \in \field^{k \times n}$ as we did in part 2.
+\[
+D = \begin{bmatrix}w(e_{0}) \dots w(e_{n})\end{bmatrix}
+\]
+Then, substitute $w(e)$ terms for their definitions in terms of $A$ and $B$. Denote the columns of $A$ as $a_{0}, \dots , a_{n}$ and the columns of $B$ as $b_{0}, \dots , b_{m}$:
+\[
+D = \begin{bmatrix}\sum_{j=0}^{m}b_{j}(\sum_{i=0}^{n}a_{i}{e_{0}}_{i})_{j} \dots \sum_{j=0}^{m}b_{j}(\sum_{i=0}^{n}a_{i}{e_{n}}_{i})_{j}\end{bmatrix}
+\]
+(Solution contributed by \verb|@colludingnode|.)
+\end{solution}
+
 \section{Vector spaces}
 In this problem, we'll explore some basic vector spaces that we talked about in the
 lecture.
