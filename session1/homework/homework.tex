@@ -22,8 +22,13 @@
 \let\vec\undefined
 \newcommand{\vec}{\mathbf{vec}}
 
+<<<<<<< Updated upstream
+% \excludeversion{solution}
+\includeversion{solution}
+=======
 \excludeversion{solution}
-%\includeversion{solution}
+% \includeversion{solution}
+>>>>>>> Stashed changes
 
 \input defs.tex
 
@@ -35,6 +40,7 @@
 \maketitle 
 
 \section*{A general note}
+
 None of the solutions to these exercises should be more than a few lines long.
 If you find yourself writing more than half a page or so for a solution,
 there's probably a simpler way! (Of course, \emph{finding} the simpler way
@@ -148,6 +154,42 @@ as a linear combination of the basis vectors,
         0\\0\\\vdots\\1
     \end{bmatrix}.
 \]
+
+\begin{solution}
+\paragraph{Part 2 solution.} 
+Using the hint and the basis vectors, note that we can write the vector $x$ as
+\[
+    x = \begin{bmatrix}
+    x_1 \\ x_2 \\ \vdots \\ x_n
+    \end{bmatrix} = x_1\begin{bmatrix}
+    1 \\ 0 \\ \vdots \\ 0
+    \end{bmatrix} + x_2\begin{bmatrix}
+    0 \\ 1 \\ \vdots \\ 0
+    \end{bmatrix} + \dots + x_n\begin{bmatrix}
+    0 \\ 0 \\ \vdots \\ 1
+    \end{bmatrix} = x_1e_1 + x_2e_2 + \dots + x_n e_n.
+\]
+Plugging this into $f$ gives
+\[
+    f(x) = f(x_1 e_1 + \dots + x_n e_n).
+\]
+Using the definition of a linear function, we can split the sum up:
+\[
+f(x_1 e_1 + \dots + x_n e_n) = x_1f(e_1) + \dots x_n f(e_n).
+\]
+Now, compare this to the definition of matrix multiplication~\eqref{eq:mat-mul}.
+Parsing the symbols very carefully means that we can view each vector
+$f(e_1), \dots, f(e_n)$ as the columns of some matrix
+\[
+    A = \begin{bmatrix} f(e_1) & f(e_2) & \dots & f(e_n) \end{bmatrix},
+\]
+which finally gives
+\[
+    f(x) = Ax,
+\]
+as required. (Solution contributed by \verb|@colludingnode|.)
+\end{solution}
+
 
 \paragraph{Part 3.} Say we have a second linear function $h: \field^m \to
 \field^k$. Let's define the new function
