@@ -22,8 +22,13 @@
 \let\vec\undefined
 \newcommand{\vec}{\mathbf{vec}}
 
+<<<<<<< Updated upstream
+% \excludeversion{solution}
+\includeversion{solution}
+=======
 \excludeversion{solution}
-%\includeversion{solution}
+% \includeversion{solution}
+>>>>>>> Stashed changes
 
 \input defs.tex
 
@@ -35,6 +40,7 @@
 \maketitle 
 
 \section*{A general note}
+
 None of the solutions to these exercises should be more than a few lines long.
 If you find yourself writing more than half a page or so for a solution,
 there's probably a simpler way! (Of course, \emph{finding} the simpler way
@@ -151,37 +157,37 @@ as a linear combination of the basis vectors,
 
 \begin{solution}
 \paragraph{Part 2 solution.} 
-Recall the definition of matrix vector multiplication for $A \in \field^{m \times n }$, $x \in \field^n$, and let $a_{0, \dots , i}$ denote the columns of $A$ as $m$-vectors:
+Using the hint and the basis vectors, note that we can write the vector $x$ as
 \[
-Ax = \sum_{i=0}^{n} a_{n}x_{n}
+    x = \begin{bmatrix}
+    x_1 \\ x_2 \\ \vdots \\ x_n
+    \end{bmatrix} = x_1\begin{bmatrix}
+    1 \\ 0 \\ \vdots \\ 0
+    \end{bmatrix} + x_2\begin{bmatrix}
+    0 \\ 1 \\ \vdots \\ 0
+    \end{bmatrix} + \dots + x_n\begin{bmatrix}
+    0 \\ 0 \\ \vdots \\ 1
+    \end{bmatrix} = x_1e_1 + x_2e_2 + \dots + x_n e_n.
 \]
-
-Given that $f(x)$ is a linear function, we can break up its input $x \in F^n$ into the summation of its elements multiplied by corresponding basis vectors:
+Plugging this into $f$ gives
 \[
-f(x) = f(x_{0}\begin{bmatrix}
-        1\\0\\\vdots\\0
-    \end{bmatrix} + \dots + x_{n}\begin{bmatrix}
-        0\\0\\\vdots\\1
-    \end{bmatrix})
+    f(x) = f(x_1 e_1 + \dots + x_n e_n).
 \]
-For brevity we will denote the basis vectors with $e_{0}, \dots , e_{n}$, and we have
+Using the definition of a linear function, we can split the sum up:
 \[
-f(x) = f(x_{0}e_{0} + \dots + x_{n}e_{n})
+f(x_1 e_1 + \dots + x_n e_n) = x_1f(e_1) + \dots x_n f(e_n).
 \]
-By the definition of a linear function, we have:
+Now, compare this to the definition of matrix multiplication~\eqref{eq:mat-mul}.
+Parsing the symbols very carefully means that we can view each vector
+$f(e_1), \dots, f(e_n)$ as the columns of some matrix
 \[
-f(x_{0}e_{0} + \dots + x_{n}e_{n}) = \sum_{i=0}^{n}f(x_{i}e_{i}) = \sum_{i=0}^{n}x_{i}f(e_{i})
+    A = \begin{bmatrix} f(e_1) & f(e_2) & \dots & f(e_n) \end{bmatrix},
 \]
-We can construct a matrix $A \in \field^{m \times n}$ with columns $a_{0}, \dots , a_{n}$ equal to $m$-vectors obtained by evaluating $f$ on the basis vectors.
+which finally gives
 \[
-A = \begin{bmatrix} f(e_{0}) , & \dots &, f(e_{n}) \end{bmatrix}
+    f(x) = Ax,
 \]
-By the definition of matrix-vector multiplication, we have
-\[
-f(x) = Ax
-\]
-(Solution
-contributed by \verb|@colludingnode|.)
+as required. (Solution contributed by \verb|@colludingnode|.)
 \end{solution}
 
 
